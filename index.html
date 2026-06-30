@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بنيان للمقاولات</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0a1628;
+  --navy2:#0d1f3c;
+  --navy3:#1a2f52;
+  --gold:#c9a84c;
+  --gold2:#e8c96a;
+  --gold3:#f5e0a0;
+  --white:#f8f4ee;
+  --gray:#8a9bb5;
+  --light:#dde3ec;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Cairo',sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 40px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,22,40,0.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,168,76,0.15)}
+.logo{font-size:22px;font-weight:900;color:var(--gold);letter-spacing:1px;display:flex;align-items:center;gap:8px}
+.logo-icon{width:36px;height:36px;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:16px}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{color:var(--light);text-decoration:none;font-size:14px;font-weight:400;transition:color .2s;cursor:pointer}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{background:var(--gold);color:var(--navy);padding:10px 24px;font-size:14px;font-weight:700;cursor:pointer;border:none;font-family:'Cairo',sans-serif;transition:background .2s}
+.nav-cta:hover{background:var(--gold2)}
+
+/* HERO */
+.hero{height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.skyline-bg{position:absolute;inset:0;background:linear-gradient(to bottom, #040d1a 0%, #071224 40%, #0a1628 100%)}
+.skyline-svg{position:absolute;bottom:0;left:0;right:0;width:100%;height:65%}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top, rgba(10,22,40,0.7) 0%, transparent 50%, rgba(4,13,26,0.5) 100%)}
+.hero-content{position:relative;z-index:2;text-align:center;max-width:800px;padding:0 20px}
+.hero-eyebrow{display:inline-block;border:1px solid var(--gold);color:var(--gold);font-size:12px;font-weight:600;letter-spacing:4px;padding:6px 20px;margin-bottom:28px}
+.hero-title{font-size:62px;font-weight:900;line-height:1.1;margin-bottom:20px;color:var(--white)}
+.hero-title span{color:var(--gold)}
+.hero-sub{font-size:17px;color:var(--light);line-height:1.8;margin-bottom:40px;font-weight:300;max-width:560px;margin-left:auto;margin-right:auto}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--gold);color:var(--navy);padding:14px 36px;font-size:15px;font-weight:700;border:none;cursor:pointer;font-family:'Cairo',sans-serif;letter-spacing:1px;transition:all .2s}
+.btn-primary:hover{background:var(--gold2);transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--gold);padding:14px 36px;font-size:15px;font-weight:600;border:1px solid var(--gold);cursor:pointer;font-family:'Cairo',sans-serif;letter-spacing:1px;transition:all .2s}
+.btn-outline:hover{background:rgba(201,168,76,0.1)}
+.hero-stats{position:absolute;bottom:40px;left:0;right:0;display:flex;justify-content:center;gap:60px;z-index:2}
+.stat{text-align:center}
+.stat-num{font-size:36px;font-weight:900;color:var(--gold);line-height:1}
+.stat-lbl{font-size:13px;color:var(--gray);margin-top:4px;font-weight:300}
+
+/* SECTIONS */
+section{padding:90px 40px}
+.container{max-width:1100px;margin:0 auto}
+.section-label{font-size:11px;font-weight:600;letter-spacing:4px;color:var(--gold);margin-bottom:14px}
+.section-title{font-size:40px;font-weight:900;line-height:1.2;margin-bottom:16px}
+.section-title span{color:var(--gold)}
+.section-desc{font-size:16px;color:var(--gray);line-height:1.9;max-width:620px;font-weight:300}
+.divider{width:60px;height:3px;background:var(--gold);margin:20px 0}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;margin-top:60px}
+.about-img-main{width:100%;aspect-ratio:4/5;background:var(--navy3);border:1px solid rgba(201,168,76,0.2);display:flex;align-items:flex-end;overflow:hidden;position:relative}
+.about-badge{position:absolute;bottom:24px;right:-20px;background:var(--gold);color:var(--navy);padding:20px 24px;text-align:center}
+.about-badge-num{font-size:38px;font-weight:900;line-height:1}
+.about-badge-txt{font-size:12px;font-weight:600;letter-spacing:1px}
+.about-points{margin-top:30px;display:flex;flex-direction:column;gap:16px}
+.about-point{display:flex;align-items:flex-start;gap:14px}
+.point-dot{width:6px;height:6px;background:var(--gold);border-radius:50%;margin-top:8px;flex-shrink:0}
+.point-txt{font-size:15px;color:var(--light);line-height:1.7;font-weight:300}
+
+/* SERVICES */
+.services-bg{background:var(--navy2)}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(201,168,76,0.1);margin-top:60px}
+.service-card{background:var(--navy2);padding:36px 30px;transition:all .3s;cursor:default;position:relative;overflow:hidden}
+.service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:background .3s}
+.service-card:hover::before{background:var(--gold)}
+.service-card:hover{background:var(--navy3)}
+.service-icon{font-size:36px;margin-bottom:20px}
+.service-name{font-size:18px;font-weight:700;margin-bottom:10px;color:var(--white)}
+.service-desc{font-size:14px;color:var(--gray);line-height:1.8;font-weight:300}
+
+/* PROJECTS */
+.projects-filter{display:flex;gap:12px;margin-bottom:40px;flex-wrap:wrap}
+.filter-btn{background:transparent;color:var(--gray);border:1px solid rgba(138,155,181,0.3);padding:8px 20px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Cairo',sans-serif;letter-spacing:1px;transition:all .2s}
+.filter-btn.active,.filter-btn:hover{border-color:var(--gold);color:var(--gold)}
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+.project-card{position:relative;aspect-ratio:4/3;overflow:hidden;cursor:pointer;background:var(--navy3)}
+.project-visual{width:100%;height:100%;display:flex;align-items:flex-end;position:relative}
+.project-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,22,40,0.95) 0%,transparent 60%);opacity:0;transition:opacity .3s}
+.project-card:hover .project-overlay{opacity:1}
+.project-info{position:absolute;bottom:0;left:0;right:0;padding:20px;transform:translateY(10px);opacity:0;transition:all .3s}
+.project-card:hover .project-info{transform:translateY(0);opacity:1}
+.project-name{font-size:16px;font-weight:700;color:var(--white)}
+.project-type{font-size:12px;color:var(--gold);letter-spacing:2px;margin-top:4px}
+.project-num{position:absolute;top:16px;right:16px;font-size:11px;font-weight:700;color:var(--gold);background:rgba(10,22,40,0.8);padding:4px 10px;letter-spacing:2px}
+
+/* WHY US */
+.why-bg{background:var(--navy2)}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:30px;margin-top:60px}
+.why-card{text-align:center;padding:36px 20px;border:1px solid rgba(201,168,76,0.1);transition:all .3s}
+.why-card:hover{border-color:rgba(201,168,76,0.4);background:rgba(201,168,76,0.04)}
+.why-icon{font-size:40px;margin-bottom:16px}
+.why-title{font-size:16px;font-weight:700;margin-bottom:10px;color:var(--white)}
+.why-desc{font-size:13px;color:var(--gray);line-height:1.8;font-weight:300}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;margin-top:60px}
+.contact-info{display:flex;flex-direction:column;gap:28px}
+.contact-item{display:flex;align-items:flex-start;gap:16px}
+.contact-icon{width:48px;height:48px;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.contact-label{font-size:11px;color:var(--gold);letter-spacing:3px;margin-bottom:6px;font-weight:600}
+.contact-val{font-size:15px;color:var(--light);line-height:1.6}
+.contact-form{display:flex;flex-direction:column;gap:16px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:8px}
+.form-label{font-size:12px;color:var(--gray);letter-spacing:2px;font-weight:600}
+.form-input{background:var(--navy2);border:1px solid rgba(138,155,181,0.2);color:var(--white);padding:13px 16px;font-size:14px;font-family:'Cairo',sans-serif;outline:none;transition:border .2s}
+.form-input:focus{border-color:var(--gold)}
+.form-input::placeholder{color:var(--gray);font-size:13px}
+textarea.form-input{resize:none;min-height:100px}
+
+/* FOOTER */
+footer{background:#040d1a;padding:40px;border-top:1px solid rgba(201,168,76,0.15)}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.footer-logo{font-size:20px;font-weight:900;color:var(--gold)}
+.footer-copy{font-size:13px;color:var(--gray)}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-size:13px;color:var(--gray);text-decoration:none;cursor:pointer;transition:color .2s}
+.footer-links a:hover{color:var(--gold)}
+
+.bld-a{fill:#0d1f3c}.bld-b{fill:#0f2340}.bld-c{fill:#112545}.bld-d{fill:#0a1628}.bld-e{fill:#0c1e38}
+.bld-lit{fill:#c9a84c;opacity:.7}
+.bld-win{fill:rgba(201,168,76,0.3)}
+.moon{fill:none;stroke:var(--gold);stroke-width:1.5;opacity:.6}
+.stars{fill:#c9a84c;opacity:.5}
+
+@media(max-width:768px){
+  .hero-title{font-size:38px}
+  .about-grid,.contact-grid{grid-template-columns:1fr}
+  .services-grid,.projects-grid,.why-grid{grid-template-columns:1fr}
+  nav{padding:14px 20px}
+  .nav-links{display:none}
+  section{padding:60px 20px}
+  .form-row{grid-template-columns:1fr}
+  .hero-stats{gap:30px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">
+    <div class="logo-icon">B</div>
+    بنيان للمقاولات
+  </div>
+  <ul class="nav-links">
+    <li><a onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">عن الشركة</a></li>
+    <li><a onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">خدماتنا</a></li>
+    <li><a onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">مشاريعنا</a></li>
+    <li><a onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">تواصل معنا</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">احصل على عرض سعر</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="skyline-bg"></div>
+  <svg class="skyline-svg" viewBox="0 0 1400 500" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+    <circle class="stars" cx="120" cy="40" r="1.2"/>
+    <circle class="stars" cx="250" cy="80" r="1"/>
+    <circle class="stars" cx="400" cy="30" r="1.4"/>
+    <circle class="stars" cx="600" cy="60" r="1"/>
+    <circle class="stars" cx="800" cy="25" r="1.2"/>
+    <circle class="stars" cx="950" cy="70" r="1"/>
+    <circle class="stars" cx="1100" cy="40" r="1.5"/>
+    <circle class="stars" cx="1280" cy="55" r="1"/>
+    <circle class="stars" cx="1350" cy="30" r="1.2"/>
+    <circle class="stars" cx="70" cy="100" r="0.8"/>
+    <circle class="stars" cx="500" cy="90" r="0.9"/>
+    <circle class="stars" cx="1050" cy="90" r="1"/>
+    <circle class="moon" cx="200" cy="70" r="22"/>
+    <circle cx="212" cy="64" r="18" fill="#040d1a"/>
+    <rect x="0" y="280" width="60" height="220" class="bld-a" opacity=".5"/>
+    <rect x="55" y="250" width="45" height="250" class="bld-a" opacity=".5"/>
+    <rect x="95" y="300" width="55" height="200" class="bld-a" opacity=".5"/>
+    <rect x="1250" y="270" width="70" height="230" class="bld-a" opacity=".5"/>
+    <rect x="1310" y="240" width="50" height="260" class="bld-a" opacity=".5"/>
+    <rect x="1350" y="280" width="50" height="220" class="bld-a" opacity=".5"/>
+    <rect x="0" y="200" width="80" height="300" class="bld-b"/>
+    <rect x="10" y="215" width="12" height="8" class="bld-win"/><rect x="28" y="215" width="12" height="8" class="bld-win"/>
+    <rect x="46" y="215" width="12" height="8" class="bld-win"/><rect x="64" y="215" width="12" height="8" class="bld-win"/>
+    <rect x="10" y="233" width="12" height="8" class="bld-win"/><rect x="28" y="233" width="12" height="8" class="bld-lit"/>
+    <rect x="10" y="251" width="12" height="8" class="bld-win"/><rect x="64" y="251" width="12" height="8" class="bld-lit"/>
+    <rect x="10" y="269" width="12" height="8" class="bld-win"/><rect x="28" y="269" width="12" height="8" class="bld-win"/>
+    <rect x="46" y="287" width="12" height="8" class="bld-win"/><rect x="64" y="287" width="12" height="8" class="bld-win"/>
+    <rect x="75" y="160" width="70" height="340" class="bld-c"/>
+    <rect x="82" y="170" width="10" height="10" class="bld-win"/><rect x="98" y="170" width="10" height="10" class="bld-lit"/>
+    <rect x="114" y="170" width="10" height="10" class="bld-win"/><rect x="130" y="170" width="10" height="10" class="bld-win"/>
+    <rect x="82" y="190" width="10" height="10" class="bld-win"/><rect x="114" y="190" width="10" height="10" class="bld-lit"/>
+    <rect x="82" y="210" width="10" height="10" class="bld-win"/><rect x="98" y="210" width="10" height="10" class="bld-win"/>
+    <rect x="130" y="210" width="10" height="10" class="bld-win"/><rect x="82" y="230" width="10" height="10" class="bld-lit"/>
+    <rect x="114" y="230" width="10" height="10" class="bld-win"/><rect x="82" y="250" width="10" height="10" class="bld-win"/>
+    <rect x="98" y="250" width="10" height="10" class="bld-win"/><rect x="130" y="250" width="10" height="10" class="bld-lit"/>
+    <rect x="140" y="80" width="90" height="420" class="bld-d"/>
+    <line x1="185" y1="80" x2="185" y2="40" stroke="#c9a84c" stroke-width="2" opacity=".8"/>
+    <circle cx="185" cy="40" r="3" fill="#c9a84c" opacity=".9"/>
+    <rect x="152" y="95" width="12" height="9" class="bld-win"/><rect x="170" y="95" width="12" height="9" class="bld-win"/>
+    <rect x="188" y="95" width="12" height="9" class="bld-lit"/><rect x="206" y="95" width="12" height="9" class="bld-win"/>
+    <rect x="152" y="114" width="12" height="9" class="bld-win"/><rect x="188" y="114" width="12" height="9" class="bld-win"/>
+    <rect x="206" y="114" width="12" height="9" class="bld-lit"/><rect x="152" y="133" width="12" height="9" class="bld-win"/>
+    <rect x="170" y="133" width="12" height="9" class="bld-lit"/><rect x="188" y="133" width="12" height="9" class="bld-win"/>
+    <rect x="152" y="152" width="12" height="9" class="bld-win"/><rect x="206" y="152" width="12" height="9" class="bld-win"/>
+    <rect x="152" y="171" width="12" height="9" class="bld-win"/><rect x="170" y="171" width="12" height="9" class="bld-win"/>
+    <rect x="188" y="171" width="12" height="9" class="bld-lit"/><rect x="206" y="171" width="12" height="9" class="bld-win"/>
+    <rect x="152" y="190" width="12" height="9" class="bld-win"/><rect x="170" y="190" width="12" height="9" class="bld-lit"/>
+    <rect x="188" y="190" width="12" height="9" class="bld-win"/><rect x="152" y="209" width="12" height="9" class="bld-win"/>
+    <rect x="170" y="209" width="12" height="9" class="bld-win"/><rect x="206" y="209" width="12" height="9" class="bld-lit"/>
+    <rect x="152" y="228" width="12" height="9" class="bld-win"/><rect x="188" y="228" width="12" height="9" class="bld-win"/>
+    <rect x="152" y="247" width="12" height="9" class="bld-lit"/><rect x="170" y="247" width="12" height="9" class="bld-win"/>
+    <rect x="206" y="247" width="12" height="9" class="bld-win"/>
+    <rect x="380" y="220" width="65" height="280" class="bld-b"/>
+    <rect x="445" y="100" width="100" height="400" class="bld-c"/>
+    <rect x="460" y="70" width="70" height="35" class="bld-c"/>
+    <rect x="475" y="45" width="40" height="30" class="bld-d"/>
+    <line x1="495" y1="45" x2="495" y2="15" stroke="#c9a84c" stroke-width="2.5" opacity=".9"/>
+    <circle cx="495" cy="14" r="4" fill="#c9a84c"/>
+    <rect x="458" y="115" width="14" height="10" class="bld-win"/><rect x="478" y="115" width="14" height="10" class="bld-lit"/>
+    <rect x="498" y="115" width="14" height="10" class="bld-win"/><rect x="518" y="115" width="14" height="10" class="bld-win"/>
+    <rect x="458" y="135" width="14" height="10" class="bld-win"/><rect x="498" y="135" width="14" height="10" class="bld-win"/>
+    <rect x="518" y="135" width="14" height="10" class="bld-lit"/><rect x="458" y="155" width="14" height="10" class="bld-lit"/>
+    <rect x="478" y="155" width="14" height="10" class="bld-win"/><rect x="518" y="155" width="14" height="10" class="bld-win"/>
+    <rect x="458" y="175" width="14" height="10" class="bld-win"/><rect x="478" y="175" width="14" height="10" class="bld-lit"/>
+    <rect x="498" y="175" width="14" height="10" class="bld-win"/><rect x="458" y="195" width="14" height="10" class="bld-win"/>
+    <rect x="518" y="195" width="14" height="10" class="bld-win"/><rect x="478" y="215" width="14" height="10" class="bld-lit"/>
+    <rect x="498" y="215" width="14" height="10" class="bld-win"/>
+    <rect x="560" y="190" width="75" height="310" class="bld-b"/>
+    <rect x="580" y="200" width="12" height="10" class="bld-win"/><rect x="598" y="200" width="12" height="10" class="bld-lit"/>
+    <rect x="616" y="200" width="12" height="10" class="bld-win"/><rect x="580" y="220" width="12" height="10" class="bld-win"/>
+    <rect x="616" y="220" width="12" height="10" class="bld-lit"/><rect x="598" y="240" width="12" height="10" class="bld-win"/>
+    <rect x="580" y="260" width="12" height="10" class="bld-lit"/><rect x="616" y="260" width="12" height="10" class="bld-win"/>
+    <rect x="630" y="130" width="85" height="370" class="bld-d"/>
+    <line x1="672" y1="130" x2="672" y2="100" stroke="#c9a84c" stroke-width="2" opacity=".7"/>
+    <circle cx="672" cy="100" r="3" fill="#c9a84c" opacity=".8"/>
+    <rect x="643" y="145" width="13" height="9" class="bld-win"/><rect x="661" y="145" width="13" height="9" class="bld-win"/>
+    <rect x="679" y="145" width="13" height="9" class="bld-lit"/><rect x="697" y="145" width="13" height="9" class="bld-win"/>
+    <rect x="643" y="164" width="13" height="9" class="bld-lit"/><rect x="679" y="164" width="13" height="9" class="bld-win"/>
+    <rect x="643" y="183" width="13" height="9" class="bld-win"/><rect x="661" y="183" width="13" height="9" class="bld-lit"/>
+    <rect x="697" y="183" width="13" height="9" class="bld-win"/><rect x="661" y="202" width="13" height="9" class="bld-win"/>
+    <rect x="679" y="202" width="13" height="9" class="bld-win"/><rect x="643" y="221" width="13" height="9" class="bld-lit"/>
+    <rect x="697" y="221" width="13" height="9" class="bld-win"/><rect x="643" y="240" width="13" height="9" class="bld-win"/>
+    <rect x="661" y="240" width="13" height="9" class="bld-win"/><rect x="679" y="240" width="13" height="9" class="bld-lit"/>
+    <rect x="850" y="170" width="95" height="330" class="bld-c"/>
+    <rect x="862" y="182" width="14" height="10" class="bld-win"/><rect x="882" y="182" width="14" height="10" class="bld-lit"/>
+    <rect x="902" y="182" width="14" height="10" class="bld-win"/><rect x="922" y="182" width="14" height="10" class="bld-win"/>
+    <rect x="862" y="202" width="14" height="10" class="bld-win"/><rect x="902" y="202" width="14" height="10" class="bld-lit"/>
+    <rect x="882" y="222" width="14" height="10" class="bld-win"/><rect x="922" y="222" width="14" height="10" class="bld-win"/>
+    <rect x="862" y="242" width="14" height="10" class="bld-lit"/><rect x="902" y="242" width="14" height="10" class="bld-win"/>
+    <rect x="882" y="262" width="14" height="10" class="bld-win"/><rect x="922" y="262" width="14" height="10" class="bld-lit"/>
+    <rect x="862" y="282" width="14" height="10" class="bld-win"/>
+    <rect x="940" y="110" width="80" height="390" class="bld-b"/>
+    <rect x="955" y="70" width="50" height="45" class="bld-b"/>
+    <line x1="980" y1="70" x2="980" y2="40" stroke="#c9a84c" stroke-width="2.5" opacity=".85"/>
+    <circle cx="980" cy="39" r="3.5" fill="#c9a84c"/>
+    <rect x="953" y="125" width="13" height="9" class="bld-win"/><rect x="971" y="125" width="13" height="9" class="bld-lit"/>
+    <rect x="989" y="125" width="13" height="9" class="bld-win"/><rect x="1007" y="125" width="13" height="9" class="bld-win"/>
+    <rect x="953" y="144" width="13" height="9" class="bld-win"/><rect x="989" y="144" width="13" height="9" class="bld-win"/>
+    <rect x="1007" y="144" width="13" height="9" class="bld-lit"/><rect x="971" y="163" width="13" height="9" class="bld-lit"/>
+    <rect x="953" y="182" width="13" height="9" class="bld-win"/><rect x="989" y="182" width="13" height="9" class="bld-win"/>
+    <rect x="1007" y="182" width="13" height="9" class="bld-win"/><rect x="971" y="201" width="13" height="9" class="bld-win"/>
+    <rect x="953" y="220" width="13" height="9" class="bld-lit"/><rect x="1007" y="220" width="13" height="9" class="bld-win"/>
+    <rect x="989" y="239" width="13" height="9" class="bld-win"/><rect x="971" y="258" width="13" height="9" class="bld-lit"/>
+    <rect x="1080" y="210" width="70" height="290" class="bld-e"/>
+    <rect x="1095" y="222" width="12" height="8" class="bld-win"/><rect x="1113" y="222" width="12" height="8" class="bld-lit"/>
+    <rect x="1131" y="222" width="12" height="8" class="bld-win"/><rect x="1095" y="240" width="12" height="8" class="bld-win"/>
+    <rect x="1131" y="240" width="12" height="8" class="bld-win"/><rect x="1113" y="258" width="12" height="8" class="bld-lit"/>
+    <rect x="1095" y="276" width="12" height="8" class="bld-win"/>
+    <rect x="1145" y="150" width="75" height="350" class="bld-d"/>
+    <line x1="1182" y1="150" x2="1182" y2="120" stroke="#c9a84c" stroke-width="2" opacity=".75"/>
+    <circle cx="1182" cy="120" r="3" fill="#c9a84c" opacity=".85"/>
+    <rect x="1157" y="165" width="12" height="9" class="bld-win"/><rect x="1175" y="165" width="12" height="9" class="bld-lit"/>
+    <rect x="1193" y="165" width="12" height="9" class="bld-win"/><rect x="1157" y="184" width="12" height="9" class="bld-win"/>
+    <rect x="1193" y="184" width="12" height="9" class="bld-lit"/><rect x="1175" y="203" width="12" height="9" class="bld-win"/>
+    <rect x="1157" y="222" width="12" height="9" class="bld-lit"/><rect x="1193" y="222" width="12" height="9" class="bld-win"/>
+    <rect x="1215" y="200" width="185" height="300" class="bld-c"/>
+    <rect x="1228" y="212" width="14" height="10" class="bld-win"/><rect x="1248" y="212" width="14" height="10" class="bld-win"/>
+    <rect x="1268" y="212" width="14" height="10" class="bld-lit"/><rect x="1288" y="212" width="14" height="10" class="bld-win"/>
+    <rect x="1308" y="212" width="14" height="10" class="bld-win"/><rect x="1228" y="232" width="14" height="10" class="bld-lit"/>
+    <rect x="1268" y="232" width="14" height="10" class="bld-win"/><rect x="1308" y="232" width="14" height="10" class="bld-lit"/>
+    <rect x="1248" y="252" width="14" height="10" class="bld-win"/><rect x="1288" y="252" width="14" height="10" class="bld-win"/>
+    <rect x="1228" y="272" width="14" height="10" class="bld-win"/><rect x="1268" y="272" width="14" height="10" class="bld-lit"/>
+    <rect x="1308" y="272" width="14" height="10" class="bld-win"/>
+    <rect x="0" y="470" width="1400" height="30" fill="#04090f" opacity=".9"/>
+    <rect x="0" y="468" width="1400" height="4" fill="#0d1f3c"/>
+  </svg>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">منذ 1995 · نبني المستقبل</div>
+    <h1 class="hero-title">نحن نبني ما<br><span>يدوم للأجيال</span></h1>
+    <p class="hero-sub">شركة بنيان للمقاولات — رائدة في تنفيذ المشاريع الإنشائية الكبرى بجودة لا تُضاهى وخبرة تمتد لأكثر من ثلاثة عقود</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">استعرض مشاريعنا</button>
+      <button class="btn-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">تواصل معنا</button>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">+300</div><div class="stat-lbl">مشروع منجز</div></div>
+    <div class="stat"><div class="stat-num">30</div><div class="stat-lbl">سنة خبرة</div></div>
+    <div class="stat"><div class="stat-num">+50</div><div class="stat-lbl">عميل دائم</div></div>
+    <div class="stat"><div class="stat-num">15</div><div class="stat-lbl">جائزة تميز</div></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img">
+        <div class="about-img-main">
+          <svg width="100%" height="100%" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="400" fill="#0d1f3c"/>
+            <rect x="60" y="100" width="180" height="300" fill="#112545"/>
+            <rect x="80" y="120" width="15" height="12" fill="rgba(201,168,76,0.3)"/>
+            <rect x="102" y="120" width="15" height="12" fill="rgba(201,168,76,0.5)"/>
+            <rect x="124" y="120" width="15" height="12" fill="rgba(201,168,76,0.3)"/>
+            <rect x="146" y="120" width="15" height="12" fill="rgba(201,168,76,0.3)"/>
+            <rect x="168" y="120" width="15" height="12" fill="rgba(201,168,76,0.5)"/>
+            <rect x="80" y="142" width="15" height="12" fill="rgba(201,168,76,0.5)"/>
+            <rect x="124" y="142" width="15" height="12" fill="rgba(201,168,76,0.3)"/>
+            <rect x="168" y="142" width="15" height="12" fill="rgba(201,168,76,0.3)"/>
+            <rect x="80" y="164" width="15" height="12" fill="rgba(201,168,76,0.3)"/>
+            <rect x="102" y="164" width="15" height="12" fill="rgba(201,168,76,0.5)"/>
+            <rect x="146" y="164" width="15" height="12" fill="rgba(201,168,76,0.3)"/>
+            <rect x="168" y="164" width="15" height="12" fill="rgba(201,168,76,0.5)"/>
+            <line x1="220" y1="400" x2="220" y2="60" stroke="#c9a84c" stroke-width="3" opacity=".8"/>
+            <line x1="180" y1="65" x2="280" y2="65" stroke="#c9a84c" stroke-width="2.5" opacity=".8"/>
+            <line x1="220" y1="65" x2="200" y2="90" stroke="#c9a84c" stroke-width="1.5" opacity=".6"/>
+            <line x1="240" y1="65" x2="240" y2="80" stroke="#c9a84c" stroke-width="1.5" opacity=".6"/>
+            <line x1="260" y1="65" x2="270" y2="80" stroke="#c9a84c" stroke-width="1.5" opacity=".6"/>
+            <circle cx="185" cy="80" r="5" fill="none" stroke="#c9a84c" stroke-width="1.5" opacity=".7"/>
+            <rect x="0" y="380" width="300" height="20" fill="#04090f"/>
+          </svg>
+          <div class="about-badge">
+            <div class="about-badge-num">30+</div>
+            <div class="about-badge-txt">عامًا من التميز</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">من نحن</div>
+        <h2 class="section-title">شركة <span>بنيان</span> للمقاولات</h2>
+        <div class="divider"></div>
+        <p class="section-desc">تأسست شركة بنيان للمقاولات عام 1995 لتكون من أبرز شركات الإنشاء والمقاولات في المنطقة. نؤمن أن كل مبنى هو شاهد على كفاءة من بناه، لذا نلتزم بأعلى معايير الجودة في كل مشروع نتولاه.</p>
+        <div class="about-points">
+          <div class="about-point"><div class="point-dot"></div><div class="point-txt">فريق هندسي متخصص يضم أكثر من 500 مهندس ومتخصص</div></div>
+          <div class="about-point"><div class="point-dot"></div><div class="point-txt">حاصلون على شهادات ISO 9001 للجودة وISO 14001 للبيئة</div></div>
+          <div class="about-point"><div class="point-dot"></div><div class="point-txt">نفذنا مشاريع بقيمة إجمالية تجاوزت 5 مليارات جنيه</div></div>
+          <div class="about-point"><div class="point-dot"></div><div class="point-txt">شراكات استراتيجية مع كبرى الشركات الهندسية العالمية</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="services-bg">
+  <div class="container">
+    <div class="section-label">ما نقدمه</div>
+    <h2 class="section-title">خدماتنا <span>المتكاملة</span></h2>
+    <div class="divider"></div>
+    <p class="section-desc">نقدم حلولاً إنشائية شاملة من الفكرة حتى التسليم، مع ضمان أعلى معايير الجودة والأمان</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🏗️</div>
+        <div class="service-name">الإنشاء والبناء</div>
+        <div class="service-desc">تنفيذ المشاريع الإنشائية بجميع أنواعها سكنية وتجارية وصناعية بأحدث الأساليب الهندسية</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🏢</div>
+        <div class="service-name">المباني التجارية</div>
+        <div class="service-desc">تصميم وتنفيذ المجمعات التجارية والمكتبية وناطحات السحاب وفق أحدث المعايير الدولية</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🛣️</div>
+        <div class="service-name">البنية التحتية</div>
+        <div class="service-desc">مشاريع الطرق والكباري والأنفاق وشبكات الصرف الصحي ومحطات المعالجة</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🏠</div>
+        <div class="service-name">المشاريع السكنية</div>
+        <div class="service-desc">مجمعات سكنية متكاملة من الفلل والشقق الفاخرة وفق أرقى المواصفات</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">⚡</div>
+        <div class="service-name">الأعمال الكهروميكانيكية</div>
+        <div class="service-desc">تركيب وصيانة جميع الأنظمة الكهربائية والميكانيكية والتكييف والإطفاء والأمن</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔧</div>
+        <div class="service-name">الصيانة والترميم</div>
+        <div class="service-desc">خدمات صيانة دورية وترميم المباني القائمة وتطويرها وتجديد تصميمها</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label">أعمالنا</div>
+    <h2 class="section-title">أبرز <span>مشاريعنا</span></h2>
+    <div class="divider"></div>
+    <div class="projects-filter">
+      <button class="filter-btn active">الكل</button>
+      <button class="filter-btn">سكني</button>
+      <button class="filter-btn">تجاري</button>
+      <button class="filter-btn">حكومي</button>
+      <button class="filter-btn">صناعي</button>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-visual">
+          <svg width="100%" height="100%" viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="220" fill="#0d1f3c"/>
+            <rect x="40" y="40" width="220" height="180" fill="#112545"/>
+            <rect x="50" y="10" width="200" height="35" fill="#0f2340"/>
+            <rect x="55" y="55" width="18" height="14" fill="rgba(201,168,76,0.4)"/>
+            <rect x="80" y="55" width="18" height="14" fill="rgba(201,168,76,0.6)"/>
+            <rect x="105" y="55" width="18" height="14" fill="rgba(201,168,76,0.3)"/>
+            <rect x="130" y="55" width="18" height="14" fill="rgba(201,168,76,0.5)"/>
+            <rect x="155" y="55" width="18" height="14" fill="rgba(201,168,76,0.4)"/>
+            <rect x="180" y="55" width="18" height="14" fill="rgba(201,168,76,0.6)"/>
+            <rect x="205" y="55" width="18" height="14" fill="rgba(201,168,76,0.3)"/>
+            <rect x="55" y="80" width="18" height="14" fill="rgba(201,168,76,0.5)"/>
+            <rect x="105" y="80" width="18" height="14" fill="rgba(201,168,76,0.6)"/>
+            <rect x="155" y="80" width="18" height="14" fill="rgba(201,168,76,0.4)"/>
+            <rect x="205" y="80" width="18" height="14" fill="rgba(201,168,76,0.5)"/>
+            <rect x="80" y="105" width="18" height="14" fill="rgba(201,168,76,0.3)"/>
+            <rect x="130" y="105" width="18" height="14" fill="rgba(201,168,76,0.6)"/>
+            <rect x="180" y="105" width="18" height="14" fill="rgba(201,168,76,0.4)"/>
+            <rect x="55" y="130" width="18" height="14" fill="rgba(201,168,76,0.5)"/>
+            <rect x="105" y="130" width="18" height="14" fill="rgba(201,168,76,0.3)"/>
+            <rect x="155" y="130" width="18" height="14" fill="rgba(201,168,76,0.6)"/>
+            <rect x="205" y="130" width="18" height="14" fill="rgba(201,168,76,0.4)"/>
+          </svg>
+          <div class="project-overlay"></div>
+          <div class="project-info"><div class="project-name">برج النيل السكني</div><div class="project-type">مشروع سكني · القاهرة</div></div>
+        </div>
+        <div class="project-num">01</div>
+      </div>
+      <div class="project-card">
+        <div class="project-visual">
+          <svg width="100%" height="100%" viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="220" fill="#071224"/>
+            <rect x="20" y="70" width="80" height="150" fill="#0d1f3c"/>
+            <rect x="110" y="30" width="80" height="190" fill="#112545"/>
+            <rect x="200" y="90" width="80" height="130" fill="#0f2340"/>
+            <rect x="30" y="85" width="12" height="10" fill="rgba(201,168,76,0.5)"/>
+            <rect x="50" y="85" width="12" height="10" fill="rgba(201,168,76,0.3)"/>
+            <rect x="70" y="85" width="12" height="10" fill="rgba(201,168,76,0.5)"/>
+            <rect x="120" y="45" width="12" height="10" fill="rgba(201,168,76,0.6)"/>
+            <rect x="140" y="45" width="12" height="10" fill="rgba(201,168,76,0.3)"/>
+            <rect x="160" y="45" width="12" height="10" fill="rgba(201,168,76,0.5)"/>
+            <rect x="120" y="65" width="12" height="10" fill="rgba(201,168,76,0.4)"/>
+            <rect x="160" y="65" width="12" height="10" fill="rgba(201,168,76,0.6)"/>
+            <rect x="140" y="85" width="12" height="10" fill="rgba(201,168,76,0.5)"/>
+            <rect x="210" y="105" width="12" height="10" fill="rgba(201,168,76,0.4)"/>
+            <rect x="228" y="105" width="12" height="10" fill="rgba(201,168,76,0.6)"/>
+            <rect x="246" y="105" width="12" height="10" fill="rgba(201,168,76,0.3)"/>
+          </svg>
+          <div class="project-overlay"></div>
+          <div class="project-info"><div class="project-name">مجمع الأعمال التجاري</div><div class="project-type">تجاري · 6 أكتوبر</div></div>
+        </div>
+        <div class="project-num">02</div>
+      </div>
+      <div class="project-card">
+        <div class="project-visual">
+          <svg width="100%" height="100%" viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="220" fill="#040d1a"/>
+            <rect x="100" y="20" width="100" height="200" fill="#0a1628"/>
+            <rect x="70" y="80" width="35" height="140" fill="#0d1f3c"/>
+            <rect x="195" y="60" width="35" height="160" fill="#0f2340"/>
+            <rect x="108" y="35" width="14" height="10" fill="rgba(201,168,76,0.6)"/>
+            <rect x="128" y="35" width="14" height="10" fill="rgba(201,168,76,0.4)"/>
+            <rect x="148" y="35" width="14" height="10" fill="rgba(201,168,76,0.6)"/>
+            <rect x="168" y="35" width="14" height="10" fill="rgba(201,168,76,0.3)"/>
+            <rect x="108" y="55" width="14" height="10" fill="rgba(201,168,76,0.3)"/>
+            <rect x="148" y="55" width="14" height="10" fill="rgba(201,168,76,0.5)"/>
+            <rect x="168" y="55" width="14" height="10" fill="rgba(201,168,76,0.6)"/>
+            <rect x="128" y="75" width="14" height="10" fill="rgba(201,168,76,0.4)"/>
+            <rect x="108" y="95" width="14" height="10" fill="rgba(201,168,76,0.6)"/>
+            <rect x="168" y="95" width="14" height="10" fill="rgba(201,168,76,0.3)"/>
+            <line x1="150" y1="20" x2="150" y2="5" stroke="#c9a84c" stroke-width="2" opacity=".7"/>
+            <circle cx="150" cy="4" r="2.5" fill="#c9a84c" opacity=".8"/>
+          </svg>
+          <div class="project-overlay"></div>
+          <div class="project-info"><div class="project-name">مستشفى المنارة</div><div class="project-type">حكومي · الجيزة</div></div>
+        </div>
+        <div class="project-num">03</div>
+      </div>
+      <div class="project-card">
+        <div class="project-visual">
+          <svg width="100%" height="100%" viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="220" fill="#04090f"/>
+            <rect x="0" y="120" width="300" height="100" fill="#070e1c"/>
+            <rect x="30" y="60" width="240" height="160" fill="#0a1628" opacity=".8"/>
+            <rect x="40" y="70" width="220" height="20" fill="rgba(201,168,76,0.08)"/>
+            <rect x="40" y="100" width="220" height="20" fill="rgba(201,168,76,0.06)"/>
+            <rect x="40" y="130" width="220" height="20" fill="rgba(201,168,76,0.08)"/>
+            <rect x="40" y="160" width="220" height="20" fill="rgba(201,168,76,0.06)"/>
+            <rect x="0" y="50" width="20" height="170" fill="#0d1f3c"/>
+            <rect x="280" y="50" width="20" height="170" fill="#0d1f3c"/>
+            <line x1="10" y1="50" x2="290" y2="50" stroke="#c9a84c" stroke-width="3" opacity=".5"/>
+            <line x1="10" y1="30" x2="10" y2="50" stroke="#c9a84c" stroke-width="2" opacity=".4"/>
+            <line x1="290" y1="30" x2="290" y2="50" stroke="#c9a84c" stroke-width="2" opacity=".4"/>
+          </svg>
+          <div class="project-overlay"></div>
+          <div class="project-info"><div class="project-name">مصنع الصناعات الغذائية</div><div class="project-type">صناعي · العاشر من رمضان</div></div>
+        </div>
+        <div class="project-num">04</div>
+      </div>
+      <div class="project-card">
+        <div class="project-visual">
+          <svg width="100%" height="100%" viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="220" fill="#071224"/>
+            <rect x="50" y="100" width="200" height="120" fill="#0d1f3c"/>
+            <rect x="90" y="50" width="120" height="55" fill="#112545"/>
+            <rect x="120" y="20" width="60" height="35" fill="#0f2340"/>
+            <ellipse cx="150" cy="20" rx="30" ry="15" fill="none" stroke="#c9a84c" stroke-width="1.5" opacity=".5"/>
+            <rect x="60" y="115" width="16" height="12" fill="rgba(201,168,76,0.5)"/>
+            <rect x="85" y="115" width="16" height="12" fill="rgba(201,168,76,0.3)"/>
+            <rect x="110" y="115" width="16" height="12" fill="rgba(201,168,76,0.5)"/>
+            <rect x="175" y="115" width="16" height="12" fill="rgba(201,168,76,0.4)"/>
+            <rect x="200" y="115" width="16" height="12" fill="rgba(201,168,76,0.6)"/>
+            <rect x="225" y="115" width="16" height="12" fill="rgba(201,168,76,0.3)"/>
+            <rect x="100" y="65" width="14" height="10" fill="rgba(201,168,76,0.6)"/>
+            <rect x="120" y="65" width="14" height="10" fill="rgba(201,168,76,0.4)"/>
+            <rect x="140" y="65" width="14" height="10" fill="rgba(201,168,76,0.5)"/>
+            <rect x="166" y="65" width="14" height="10" fill="rgba(201,168,76,0.3)"/>
+            <rect x="186" y="65" width="14" height="10" fill="rgba(201,168,76,0.6)"/>
+          </svg>
+          <div class="project-overlay"></div>
+          <div class="project-info"><div class="project-name">مركز الثقافة والفنون</div><div class="project-type">حكومي · القاهرة الجديدة</div></div>
+        </div>
+        <div class="project-num">05</div>
+      </div>
+      <div class="project-card">
+        <div class="project-visual">
+          <svg width="100%" height="100%" viewBox="0 0 300 220" xmlns="http://www.w3.org/2000/svg">
+            <rect width="300" height="220" fill="#040d1a"/>
+            <rect x="0" y="130" width="300" height="90" fill="#060e1c"/>
+            <rect x="30" y="50" width="100" height="180" fill="#0d1f3c"/>
+            <rect x="170" y="70" width="100" height="150" fill="#112545"/>
+            <rect x="120" y="90" width="50" height="130" fill="#0a1628"/>
+            <rect x="38" y="65" width="14" height="10" fill="rgba(201,168,76,0.5)"/>
+            <rect x="58" y="65" width="14" height="10" fill="rgba(201,168,76,0.3)"/>
+            <rect x="78" y="65" width="14" height="10" fill="rgba(201,168,76,0.6)"/>
+            <rect x="98" y="65" width="14" height="10" fill="rgba(201,168,76,0.4)"/>
+            <rect x="178" y="85" width="14" height="10" fill="rgba(201,168,76,0.5)"/>
+            <rect x="198" y="85" width="14" height="10" fill="rgba(201,168,76,0.6)"/>
+            <rect x="238" y="85" width="14" height="10" fill="rgba(201,168,76,0.3)"/>
+            <rect x="38" y="85" width="14" height="10" fill="rgba(201,168,76,0.3)"/>
+            <rect x="78" y="85" width="14" height="10" fill="rgba(201,168,76,0.5)"/>
+            <rect x="178" y="105" width="14" height="10" fill="rgba(201,168,76,0.4)"/>
+            <rect x="218" y="105" width="14" height="10" fill="rgba(201,168,76,0.6)"/>
+          </svg>
+          <div class="project-overlay"></div>
+          <div class="project-info"><div class="project-name">كمبوند الرياض السكني</div><div class="project-type">سكني · التجمع الخامس</div></div>
+        </div>
+        <div class="project-num">06</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-bg">
+  <div class="container">
+    <div style="text-align:center">
+      <div class="section-label">لماذا بنيان</div>
+      <h2 class="section-title">ما يجعلنا <span>الخيار الأول</span></h2>
+      <div class="divider" style="margin:20px auto"></div>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🏆</div>
+        <div class="why-title">جودة معتمدة</div>
+        <div class="why-desc">نلتزم بأعلى معايير الجودة الدولية في كل مرحلة من مراحل التنفيذ</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">⏱️</div>
+        <div class="why-title">التسليم في الموعد</div>
+        <div class="why-desc">نلتزم بالجدول الزمني المتفق عليه ونسلم مشاريعنا في موعدها دائمًا</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">💰</div>
+        <div class="why-title">أسعار تنافسية</div>
+        <div class="why-desc">نقدم أفضل جودة بأسعار منافسة مع الشفافية الكاملة في التكاليف</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🛡️</div>
+        <div class="why-title">ضمان شامل</div>
+        <div class="why-desc">نوفر ضمانًا شاملًا على جميع أعمالنا الإنشائية لمدة تصل إلى 10 سنوات</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label">تواصل معنا</div>
+    <h2 class="section-title">ابدأ <span>مشروعك معنا</span></h2>
+    <div class="divider"></div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <p class="section-desc">نحن هنا لتحويل رؤيتك إلى واقع. تواصل معنا وسيرد عليك فريقنا المتخصص خلال 24 ساعة</p>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div><div class="contact-label">العنوان</div><div class="contact-val">24 شارع محيي الدين أبو العز<br>المهندسين، الجيزة، مصر</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div><div class="contact-label">هاتف</div><div class="contact-val">+20 2 3761 0000<br>+20 100 000 0000</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">✉️</div>
+          <div><div class="contact-label">البريد الإلكتروني</div><div class="contact-val">info@bonyaan.com<br>projects@bonyaan.com</div></div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <div><div class="contact-label">مواعيد العمل</div><div class="contact-val">الأحد – الخميس: 9 ص – 5 م</div></div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">الاسم الكامل</label><input class="form-input" type="text" placeholder="محمد أحمد"/></div>
+          <div class="form-group"><label class="form-label">رقم الهاتف</label><input class="form-input" type="tel" placeholder="+20 1xx xxx xxxx"/></div>
+        </div>
+        <div class="form-group"><label class="form-label">البريد الإلكتروني</label><input class="form-input" type="email" placeholder="example@mail.com"/></div>
+        <div class="form-group"><label class="form-label">نوع المشروع</label>
+          <select class="form-input" style="cursor:pointer">
+            <option value="">اختر نوع المشروع</option>
+            <option>مبنى سكني</option>
+            <option>مبنى تجاري</option>
+            <option>مشروع صناعي</option>
+            <option>بنية تحتية</option>
+            <option>أخرى</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">تفاصيل المشروع</label><textarea class="form-input" placeholder="اكتب تفاصيل مشروعك هنا..."></textarea></div>
+        <button class="btn-primary" style="width:100%;font-size:16px;padding:16px" onclick="alert('تم إرسال طلبك بنجاح! سنتواصل معك قريباً')">إرسال الطلب</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">بنيان للمقاولات</div>
+    <div class="footer-copy">© 2024 بنيان للمقاولات. جميع الحقوق محفوظة</div>
+    <div class="footer-links">
+      <a>سياسة الخصوصية</a>
+      <a>الشروط والأحكام</a>
+      <a>خريطة الموقع</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const filterBtns = document.querySelectorAll('.filter-btn');
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

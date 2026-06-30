@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة التحكم — بنيان للمقاولات</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --navy:#0a1628;--navy2:#0d1f3c;--navy3:#1a2f52;
+  --gold:#c9a84c;--gold2:#e8c96a;
+  --white:#f8f4ee;--gray:#8a9bb5;--light:#dde3ec;
+  --green:#2ecc71;--red:#e74c3c;--orange:#f39c12;
+}
+body{font-family:'Cairo',sans-serif;background:#060e1c;color:var(--white);min-height:100vh}
+
+/* HEADER */
+header{background:var(--navy2);border-bottom:1px solid rgba(201,168,76,0.2);padding:18px 32px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:50}
+.header-logo{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:900;color:var(--gold)}
+.logo-box{width:34px;height:34px;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:14px}
+.header-badge{background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);color:var(--gold);font-size:11px;font-weight:600;padding:4px 12px;letter-spacing:2px}
+.header-actions{display:flex;gap:12px;align-items:center}
+.btn-danger{background:transparent;border:1px solid rgba(231,76,60,0.4);color:#e74c3c;padding:8px 18px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Cairo',sans-serif;transition:all .2s}
+.btn-danger:hover{background:rgba(231,76,60,0.1)}
+.btn-export{background:var(--gold);color:var(--navy);padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:'Cairo',sans-serif;transition:background .2s}
+.btn-export:hover{background:var(--gold2)}
+
+/* STATS ROW */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:28px 32px}
+.stat-card{background:var(--navy2);border:1px solid rgba(201,168,76,0.1);padding:22px 24px;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;right:0;width:3px;height:100%}
+.stat-card.gold::before{background:var(--gold)}
+.stat-card.green::before{background:var(--green)}
+.stat-card.orange::before{background:var(--orange)}
+.stat-card.blue::before{background:#3498db}
+.stat-label{font-size:11px;color:var(--gray);letter-spacing:2px;font-weight:600;margin-bottom:10px}
+.stat-value{font-size:34px;font-weight:900;line-height:1}
+.stat-card.gold .stat-value{color:var(--gold)}
+.stat-card.green .stat-value{color:var(--green)}
+.stat-card.orange .stat-value{color:var(--orange)}
+.stat-card.blue .stat-value{color:#3498db}
+.stat-sub{font-size:12px;color:var(--gray);margin-top:6px;font-weight:300}
+
+/* FILTERS */
+.filters-bar{padding:0 32px 20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.filter-chip{background:transparent;border:1px solid rgba(138,155,181,0.25);color:var(--gray);padding:7px 18px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Cairo',sans-serif;transition:all .2s}
+.filter-chip.active,.filter-chip:hover{border-color:var(--gold);color:var(--gold)}
+.search-box{margin-right:auto;position:relative}
+.search-box input{background:var(--navy2);border:1px solid rgba(138,155,181,0.2);color:var(--white);padding:8px 16px 8px 36px;font-size:13px;font-family:'Cairo',sans-serif;width:220px;outline:none}
+.search-box input:focus{border-color:var(--gold)}
+.search-box input::placeholder{color:var(--gray)}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--gray);font-size:14px;pointer-events:none}
+
+/* TABLE */
+.table-wrap{padding:0 32px 40px;overflow-x:auto}
+.leads-table{width:100%;border-collapse:collapse}
+.leads-table th{background:var(--navy2);color:var(--gold);font-size:11px;font-weight:600;letter-spacing:2px;padding:14px 16px;text-align:right;border-bottom:1px solid rgba(201,168,76,0.2);white-space:nowrap}
+.leads-table td{padding:15px 16px;font-size:14px;color:var(--light);border-bottom:1px solid rgba(255,255,255,0.05);vertical-align:middle}
+.leads-table tr:hover td{background:rgba(201,168,76,0.03)}
+.badge{display:inline-block;padding:4px 12px;font-size:11px;font-weight:700;letter-spacing:1px}
+.badge-new{background:rgba(46,204,113,0.15);color:var(--green);border:1px solid rgba(46,204,113,0.3)}
+.badge-contacted{background:rgba(52,152,219,0.15);color:#3498db;border:1px solid rgba(52,152,219,0.3)}
+.badge-done{background:rgba(201,168,76,0.15);color:var(--gold);border:1px solid rgba(201,168,76,0.3)}
+.btn-status{background:transparent;border:none;cursor:pointer;font-family:'Cairo',sans-serif;font-size:12px;color:var(--gray);padding:4px 8px;transition:color .2s}
+.btn-status:hover{color:var(--gold)}
+.btn-del{background:transparent;border:none;cursor:pointer;color:rgba(231,76,60,0.5);font-size:16px;padding:4px 8px;transition:color .2s}
+.btn-del:hover{color:#e74c3c}
+.msg-cell{max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--gray)}
+.date-cell{font-size:12px;color:var(--gray);white-space:nowrap}
+
+/* EMPTY STATE */
+.empty-state{text-align:center;padding:80px 20px;color:var(--gray)}
+.empty-icon{font-size:56px;margin-bottom:20px;opacity:.4}
+.empty-title{font-size:20px;font-weight:700;color:var(--light);margin-bottom:10px}
+.empty-sub{font-size:14px;font-weight:300;line-height:1.8}
+
+/* MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;display:none;align-items:center;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:var(--navy2);border:1px solid rgba(201,168,76,0.2);padding:32px;max-width:540px;width:90%;max-height:90vh;overflow-y:auto}
+.modal-title{font-size:18px;font-weight:900;color:var(--gold);margin-bottom:24px;display:flex;justify-content:space-between;align-items:center}
+.modal-close{background:none;border:none;color:var(--gray);cursor:pointer;font-size:20px;font-family:'Cairo',sans-serif}
+.modal-close:hover{color:var(--white)}
+.detail-row{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+.detail-label{font-size:11px;color:var(--gold);letter-spacing:2px;font-weight:600}
+.detail-val{font-size:15px;color:var(--light);line-height:1.6;background:var(--navy);padding:10px 14px;border-right:2px solid var(--gold)}
+.modal-actions{display:flex;gap:12px;margin-top:24px;flex-wrap:wrap}
+.btn-sm{padding:9px 20px;font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:'Cairo',sans-serif;transition:all .2s}
+.btn-sm-green{background:rgba(46,204,113,0.2);color:var(--green);border:1px solid rgba(46,204,113,0.3)}
+.btn-sm-green:hover{background:rgba(46,204,113,0.35)}
+.btn-sm-blue{background:rgba(52,152,219,0.2);color:#3498db;border:1px solid rgba(52,152,219,0.3)}
+.btn-sm-blue:hover{background:rgba(52,152,219,0.35)}
+.btn-sm-gold{background:rgba(201,168,76,0.2);color:var(--gold);border:1px solid rgba(201,168,76,0.3)}
+.btn-sm-gold:hover{background:rgba(201,168,76,0.35)}
+
+@media(max-width:768px){
+  .stats-row{grid-template-columns:1fr 1fr}
+  .filters-bar,.table-wrap,.stats-row{padding-right:16px;padding-left:16px}
+  header{padding:14px 16px}
+  .search-box{margin-right:0;width:100%}
+  .search-box input{width:100%}
+}
+</style>
+</head>
+<body>
+
+<!-- MODAL -->
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <div class="modal-title">
+      <span>تفاصيل الطلب</span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div id="modal-body"></div>
+    <div class="modal-actions" id="modal-actions"></div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-logo">
+    <div class="logo-box">B</div>
+    بنيان للمقاولات
+  </div>
+  <div class="header-badge">لوحة التحكم</div>
+  <div class="header-actions">
+    <button class="btn-export" onclick="exportCSV()">📥 تصدير CSV</button>
+    <button class="btn-danger" onclick="clearAll()">🗑️ حذف الكل</button>
+  </div>
+</header>
+
+<!-- STATS -->
+<div class="stats-row" id="stats-row">
+  <div class="stat-card gold"><div class="stat-label">إجمالي الطلبات</div><div class="stat-value" id="s-total">0</div><div class="stat-sub">منذ تشغيل الموقع</div></div>
+  <div class="stat-card green"><div class="stat-label">طلبات جديدة</div><div class="stat-value" id="s-new">0</div><div class="stat-sub">لم يتم التواصل بعد</div></div>
+  <div class="stat-card orange"><div class="stat-label">قيد المتابعة</div><div class="stat-value" id="s-progress">0</div><div class="stat-sub">تم التواصل معهم</div></div>
+  <div class="stat-card blue"><div class="stat-label">مكتملة</div><div class="stat-value" id="s-done">0</div><div class="stat-sub">تم الإغلاق</div></div>
+</div>
+
+<!-- FILTERS -->
+<div class="filters-bar">
+  <button class="filter-chip active" data-filter="all" onclick="setFilter(this,'all')">الكل</button>
+  <button class="filter-chip" data-filter="جديد" onclick="setFilter(this,'جديد')">جديد</button>
+  <button class="filter-chip" data-filter="تم التواصل" onclick="setFilter(this,'تم التواصل')">تم التواصل</button>
+  <button class="filter-chip" data-filter="مكتمل" onclick="setFilter(this,'مكتمل')">مكتمل</button>
+  <div class="search-box">
+    <span class="search-icon">🔍</span>
+    <input type="text" placeholder="بحث بالاسم أو الهاتف..." oninput="renderTable()" id="search-input"/>
+  </div>
+</div>
+
+<!-- TABLE -->
+<div class="table-wrap">
+  <table class="leads-table" id="leads-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>الاسم</th>
+        <th>الهاتف</th>
+        <th>البريد</th>
+        <th>نوع المشروع</th>
+        <th>الرسالة</th>
+        <th>الحالة</th>
+        <th>التاريخ</th>
+        <th>إجراء</th>
+      </tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+  </table>
+  <div class="empty-state" id="empty-state" style="display:none">
+    <div class="empty-icon">📭</div>
+    <div class="empty-title">لا توجد طلبات بعد</div>
+    <div class="empty-sub">عند قيام الزوار بإرسال طلباتهم من الموقع<br>ستظهر هنا تلقائياً</div>
+  </div>
+</div>
+
+<script>
+const KEY = 'bonyaan_leads';
+let currentFilter = 'all';
+let currentLead = null;
+
+function getLeads(){ return JSON.parse(localStorage.getItem(KEY) || '[]') }
+function saveLeads(d){ localStorage.setItem(KEY, JSON.stringify(d)) }
+
+function updateStats(leads){
+  document.getElementById('s-total').textContent    = leads.length;
+  document.getElementById('s-new').textContent      = leads.filter(l=>l.status==='جديد').length;
+  document.getElementById('s-progress').textContent = leads.filter(l=>l.status==='تم التواصل').length;
+  document.getElementById('s-done').textContent     = leads.filter(l=>l.status==='مكتمل').length;
+}
+
+function badgeClass(status){
+  if(status==='جديد') return 'badge-new';
+  if(status==='تم التواصل') return 'badge-contacted';
+  return 'badge-done';
+}
+
+function setFilter(el, val){
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  currentFilter = val;
+  renderTable();
+}
+
+function renderTable(){
+  const leads   = getLeads();
+  const search  = document.getElementById('search-input').value.trim().toLowerCase();
+  updateStats(leads);
+
+  let filtered = leads;
+  if(currentFilter !== 'all') filtered = filtered.filter(l=>l.status===currentFilter);
+  if(search) filtered = filtered.filter(l=>
+    l.name.toLowerCase().includes(search) ||
+    l.phone.toLowerCase().includes(search) ||
+    (l.email||'').toLowerCase().includes(search)
+  );
+
+  const tbody = document.getElementById('table-body');
+  const empty = document.getElementById('empty-state');
+
+  if(filtered.length === 0){
+    tbody.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+
+  tbody.innerHTML = filtered.map((lead, i) => `
+    <tr>
+      <td style="color:var(--gray);font-size:12px">${filtered.length - i}</td>
+      <td><strong style="color:var(--white)">${lead.name}</strong></td>
+      <td><a href="tel:${lead.phone}" style="color:var(--gold);text-decoration:none">${lead.phone}</a></td>
+      <td style="font-size:13px;color:var(--gray)">${lead.email||'—'}</td>
+      <td style="font-size:13px">${lead.type||'—'}</td>
+      <td class="msg-cell" title="${lead.msg||''}">${lead.msg||'—'}</td>
+      <td><span class="badge ${badgeClass(lead.status)}">${lead.status}</span></td>
+      <td class="date-cell">${lead.date}</td>
+      <td style="display:flex;gap:4px;align-items:center">
+        <button class="btn-status" onclick="openModal(${lead.id})" title="عرض التفاصيل">👁️</button>
+        <button class="btn-del" onclick="deleteLead(${lead.id})" title="حذف">✕</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function openModal(id){
+  const leads = getLeads();
+  const lead = leads.find(l=>l.id===id);
+  if(!lead) return;
+  currentLead = lead;
+
+  document.getElementById('modal-body').innerHTML = `
+    <div class="detail-row"><div class="detail-label">الاسم الكامل</div><div class="detail-val">${lead.name}</div></div>
+    <div class="detail-row"><div class="detail-label">رقم الهاتف</div><div class="detail-val"><a href="tel:${lead.phone}" style="color:var(--gold)">${lead.phone}</a></div></div>
+    <div class="detail-row"><div class="detail-label">البريد الإلكتروني</div><div class="detail-val">${lead.email||'—'}</div></div>
+    <div class="detail-row"><div class="detail-label">نوع المشروع</div><div class="detail-val">${lead.type||'—'}</div></div>
+    <div class="detail-row"><div class="detail-label">تفاصيل المشروع</div><div class="detail-val" style="white-space:pre-wrap">${lead.msg||'—'}</div></div>
+    <div class="detail-row"><div class="detail-label">تاريخ الإرسال</div><div class="detail-val">${lead.date}</div></div>
+    <div class="detail-row"><div class="detail-label">الحالة الحالية</div><div class="detail-val"><span class="badge ${badgeClass(lead.status)}">${lead.status}</span></div></div>
+  `;
+  document.getElementById('modal-actions').innerHTML = `
+    <button class="btn-sm btn-sm-green" onclick="changeStatus(${lead.id},'جديد')">🟢 جديد</button>
+    <button class="btn-sm btn-sm-blue" onclick="changeStatus(${lead.id},'تم التواصل')">🔵 تم التواصل</button>
+    <button class="btn-sm btn-sm-gold" onclick="changeStatus(${lead.id},'مكتمل')">✅ مكتمل</button>
+  `;
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal(){ document.getElementById('modal').classList.remove('open') }
+
+function changeStatus(id, status){
+  const leads = getLeads();
+  const idx = leads.findIndex(l=>l.id===id);
+  if(idx>=0){ leads[idx].status = status; saveLeads(leads); }
+  closeModal();
+  renderTable();
+}
+
+function deleteLead(id){
+  if(!confirm('هل تريد حذف هذا الطلب؟')) return;
+  const leads = getLeads().filter(l=>l.id!==id);
+  saveLeads(leads);
+  renderTable();
+}
+
+function clearAll(){
+  if(!confirm('هل تريد حذف جميع الطلبات نهائياً؟')) return;
+  localStorage.removeItem(KEY);
+  renderTable();
+}
+
+function exportCSV(){
+  const leads = getLeads();
+  if(!leads.length){ alert('لا توجد بيانات للتصدير'); return; }
+  const header = ['الاسم','الهاتف','البريد','نوع المشروع','التفاصيل','الحالة','التاريخ'];
+  const rows = leads.map(l=>[l.name,l.phone,l.email||'',l.type||'',l.msg||'',l.status,l.date].map(v=>`"${v}"`).join(','));
+  const csv = '\uFEFF' + [header.join(','), ...rows].join('\n'); // BOM for Arabic in Excel
+  const blob = new Blob([csv], {type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'bonyaan_leads.csv';
+  a.click();
+}
+
+// Close modal on background click
+document.getElementById('modal').addEventListener('click', function(e){
+  if(e.target === this) closeModal();
+});
+
+// Initial render
+renderTable();
+
+// Auto-refresh every 15 seconds (to catch new submissions from website tab)
+setInterval(renderTable, 15000);
+</script>
+</body>
+</html>
